@@ -9,8 +9,10 @@ import User from "./users/models/User.schema.js";
 import usersSeed from "./users/initialData/initialUsers.json" with {type: "json"};
 import cardsSeed from "./cards/initialData/initialCards.json" with {type: "json"};
 
+
 const app = express();
-const PORT = 8080;
+const { SERVER } = process.env;
+const PORT = SERVER;
 
 app.use(express.json({ limit: "5mb" }));
 
