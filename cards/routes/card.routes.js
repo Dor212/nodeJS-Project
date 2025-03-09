@@ -6,6 +6,7 @@ import { addCard, Likes, updateCard } from "../services/cardDataAccess.service.j
 import { isBuissines } from "../../middlewares/isBuissines.js";
 import CardSchema from "../validations/CardSchema.js";
 import { validation } from "../../middlewares/validation.js";
+import { isAdmin } from "../../middlewares/isAdmin.js";
 
 
 
@@ -22,8 +23,8 @@ router.get("/", async (req, res) => {
 
 router.get("/my-cards ",auth, async (req, res) => {
   try {
-    const cards = await Card.find({userId: req.user._id});
-    return res.json(cards);
+    const myCards = await Card.find({ userId: userId});
+    return res.json(myCards);
 } catch (err) {
     return res.status(500).send(err.message);
 }
@@ -65,6 +66,19 @@ router.patch("/:id", auth, isUser, async (req, res) => {
     return res.json(like);
   } catch (err) {
     return res.status(400).send(err.message);
+  }
+});
+
+router.patch("/changebizNumber/:id", auth, isAdmin, async (req, res) => {
+  try {
+    const newBizNumber = req.body;
+    if (newBizNumber){
+      const newBZcard = Card.BizNumber = newBizNumber;
+      newBZcard.save();
+    }
+    return res.json(data);
+  } catch (err) {
+    return res.status(500).send(err.message);
   }
 });
 

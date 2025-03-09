@@ -1,0 +1,8 @@
+09-03-2025 | 16:13:12 | POST | /users/login | 500 | 9.062ms
+09-03-2025 | 16:14:08 | POST | /users/login | 500 | 2.808ms
+09-03-2025 | 16:15:22 | POST | /users/login | 500 | 8.368ms
+09-03-2025 | 16:16:08 | POST | /users/login | 500 | 3.238ms
+09-03-2025 | 16:17:39 | POST | /users/login | 500 | 9.391ms
+09-03-2025 | 16:20:49 | POST | /users/login | 500 | 7.519ms
+09-03-2025 | 16:21:39 | POST | /users/login | 500 | 8.433ms
+

@@ -62,6 +62,7 @@ const cardSchema = new Schema({
   bizNumber: {
     type: Number,
     required: false,
+    default: Math.floor(100000 + Math.random() * 900000)
   },
   userId: {
     type: Schema.Types.ObjectId,

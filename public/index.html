@@ -14,86 +14,94 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
+            background: url('https://www.transparenttextures.com/patterns/cubes.png'), linear-gradient(135deg, #1c1c1c, #2c3e50);
+            color: #fff;
             line-height: 1.6;
-        }
-
-        h1,
-        h4 {
-            margin-bottom: 0.5rem;
+            padding: 2rem;
         }
 
         .Documentation {
-            padding: 2rem;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: auto;
+            text-align: center;
         }
 
         .title h1 {
             font-size: 2.5rem;
-            color: #4a90e2;
-            text-align: center;
+            color: #ffcc00;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             margin-bottom: 2rem;
         }
 
-        .myApi {
+        .api-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: auto;
         }
 
-        .myApi div {
-            background: #fff;
-            border: 1px solid #ddd;
+        .api-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .column-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffcc00;
+            margin-bottom: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #ffcc00;
+            padding-bottom: 0.5rem;
+        }
+
+        .api-card {
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 8px;
             padding: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-align: center;
         }
 
-        .myApi div:hover {
+        .api-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 12px rgba(255, 255, 255, 0.1);
         }
 
-        .myApi h4 {
+        .api-card h4 {
             font-size: 1.2rem;
-            color: #4a90e2;
-            display: flex;
-            align-items: center;
         }
 
-        .myApi h4::before {
-            content: '';
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            margin-right: 10px;
-            border-radius: 50%;
-            background-color: #4a90e2;
-        }
-        .post h4::before {
-            background-color: #27ae60;
+        /* צבעים לפי סוג בקשה */
+        .post {
+            border-left: 5px solid #27ae60;
         }
 
-        .get h4::before {
-            background-color: #2980b9;
+        .get {
+            border-left: 5px solid #2980b9;
         }
 
-        .put h4::before {
-            background-color: #f39c12;
+        .put {
+            border-left: 5px solid #f39c12;
         }
 
-        .patch h4::before {
-            background-color: #9b59b6;
+        .patch {
+            border-left: 5px solid #9b59b6;
         }
 
-        .delete h4::before {
-            background-color: #e74c3c;
+        .delete {
+            border-left: 5px solid #e74c3c;
         }
 
         @media (max-width: 768px) {
+            .api-container {
+                grid-template-columns: 1fr;
+            }
+
             .title h1 {
                 font-size: 2rem;
             }
@@ -102,55 +110,62 @@
 </head>
 
 <body>
-    <section class="Documentation" id="Documentation">
-        <div class="home">
-            <div class="title">
-                <h1>API Documentation</h1>
-            </div>
-            <div class="myApi">
-                <div class="post">
+    <section class="Documentation">
+        <div class="title">
+            <h1>API Documentation</h1>
+        </div>
+
+        <div class="api-container">
+            <!-- טור Users -->
+            <div class="api-column">
+                <div class="column-title">Users</div>
+                <div class="api-card post">
                     <h4>POST /users/Register</h4>
                 </div>
-                <div class="post">
+                <div class="api-card post">
                     <h4>POST /users/Login</h4>
                 </div>
-                <div class="get">
-                    <h4>GET /users (Get all users - Admin only)</h4>
+                <div class="api-card get">
+                    <h4>GET /users (Admin only)</h4>
                 </div>
-                <div class="get">
-                    <h4>GET /users/:id (Get specific user - User only)</h4>
+                <div class="api-card get">
+                    <h4>GET /users/:id (User only)</h4>
                 </div>
-                <div class="put">
-                    <h4>PUT /users/:id (Update user - Admin/User)</h4>
+                <div class="api-card put">
+                    <h4>PUT /users/:id (Admin/User)</h4>
                 </div>
-                <div class="patch">
-                    <h4>PATCH /users/:id/status (Change isBusiness - User only)</h4>
+                <div class="api-card patch">
+                    <h4>PATCH /users/:id/status (Change isBusiness)</h4>
                 </div>
-                <div class="delete">
-                    <h4>DELETE /users/:id (Delete user - Admin/User)</h4>
+                <div class="api-card delete">
+                    <h4>DELETE /users/:id (Admin/User)</h4>
                 </div>
-                <div class="get">
-                    <h4>GET /cards/ (Get all cards - User only)</h4>
+            </div>
+
+            <!-- טור Cards -->
+            <div class="api-column">
+                <div class="column-title">Cards</div>
+                <div class="api-card get">
+                    <h4>GET /cards/ (User only)</h4>
                 </div>
-                <div class="get">
-                    <h4>GET /my-cards/:id (Get my cards - User only)</h4>
+                <div class="api-card get">
+                    <h4>GET /my-cards/:id (User only)</h4>
                 </div>
-                <div class="get">
-                    <h4>GET /cards/:id (Get card - User only)</h4>
+                <div class="api-card get">
+                    <h4>GET /cards/:id (User only)</h4>
                 </div>
-                <div class="post">
-                    <h4>POST /cards/(Create New Card - Business User)</h4>
+                <div class="api-card post">
+                    <h4>POST /cards/ (Business User)</h4>
                 </div>
-                <div class="put">
-                    <h4>PUT /cards/:id (Edit Card - Business User)</h4>
+                <div class="api-card put">
+                    <h4>PUT /cards/:id (Edit - Business User)</h4>
                 </div>
-                <div class="patch">
-                    <h4>PATCH /cards/:id/ (Like Card - Users Only)</h4>
+                <div class="api-card patch">
+                    <h4>PATCH /cards/:id/ (Like Card)</h4>
                 </div>
-                <div class="delete">
-                    <h4>DELETE /cards/:id (Delete Card - Admin/The user who created the card)</h4>
+                <div class="api-card delete">
+                    <h4>DELETE /cards/:id (Admin/Owner)</h4>
                 </div>
-                
             </div>
         </div>
     </section>

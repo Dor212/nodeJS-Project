@@ -5,6 +5,8 @@ import {
   deleteUser,
   updateUser,
   login,
+  getUserById,
+  ChangeAuthlevel,
 } from "../services/userDataAccess.service.js";
 import { validation } from "../../middlewares/validation.js";
 import LoginSchema from "../validations/LoginSchema.js";
@@ -21,9 +23,7 @@ router.post("/register", validation(RegisterSchema), async (req, res) => {
   try {
     const data = req.body;
     const newUser = await addUser(data);
-    if (data.email === email) {
-      return res.status(404).send("The email already exists in the system.");
-    }
+
     return res.json({ message: "User Created", newUser });
   } catch (err) {
     return res.status(500).send(err.message);
@@ -74,19 +74,21 @@ router.put("/:id", auth, isUser, async (req, res) => {
     return res.status(500).send(err.message);
   }
 });
-router.patch("/updateBuissines", auth, isUser, async (req, res) => {
+
+router.patch("/:id", auth, isUser, async (req, res) => {
   try {
-    const user = await getUserById(req.params.id);
-    const authLever = await ChangeAuthlevel(user);
-    return res.json(authLever);
-  } catch (err) {
-    return res.status(400).send(err.message);
+    const { id } = req.params;
+    const updatedUser = await ChangeAuthlevel(id);
+    return res.json({ message: "Auth Level updated", updatedUser });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 });
 
 router.delete("/:id", auth, isUser, async (req, res) => {
   try {
     const user = await deleteUser(req.params.id);
+    return res.send("User Delete");
   } catch (err) {
     return res.status(500).send(err.message);
   }

@@ -5,20 +5,20 @@ import lodash from "lodash";
 const { pick } = lodash; 
 
 const addCard = async (cardData) => {
-  const newCard = new Card(cardData);
-  newCard.save();
-  const returnCard = pick(newCard, [
-    "name",
-    "address",
-    "image",
-    "_id",
-    "isBusiness",
-    "isAdmin",
-    "phone",
-    "email",
-  ]);
-  return returnCard;
-};
+  try{
+    const newCard = new Card(cardData);
+    if (!cardData) {
+            throw new Error("Card Was Not Created");
+        };
+        if (!cardData.bizNumber) {
+            newCard.bizNumber = Math.floor(100000 + Math.random() * 900000);
+        };
+        await newCard.save();
+        return newCard;
+  } catch {
+    throw new Error(err.message);
+  }
+}
 
 const updateCard = async (cardId) => {
   try {
@@ -49,6 +49,7 @@ const Likes = async (userId) => {
     throw new Error(err.massage);
   }
 };
+
 
 
 export { updateCard, addCard, deleteCard, Likes };

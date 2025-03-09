@@ -44,7 +44,8 @@ const consoleFormat = (tokens, req, res) =>{
 };
 
 const fileFormat = (tokens, req, res) =>{
-    return[
+    return + res.statusCode <400 ?"":
+    [
         getTodayDate(),
         getTodayTime(),
         tokens.method(req, res),

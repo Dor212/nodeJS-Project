@@ -7,7 +7,8 @@ import { ErrorHandler } from './middlewares/errorHandler.js';
 import { conn } from './services/db.services.js';
 import User from "./users/models/User.schema.js";
 import usersSeed from "./users/initialData/initialUsers.json" with {type: "json"};
-import cardsSeed from "./cards/initialData/initialCards.json" with {type: "json"};
+import cors from "cors";
+import seedCards from './cards/initialData/cardsSeed.js';
 
 
 const app = express();
@@ -17,6 +18,8 @@ const PORT = SERVER;
 app.use(express.json({ limit: "5mb" }));
 
 app.use(morganLogger);
+
+app.use(cors());
 
 app.use(express.static('public'));
 
@@ -29,8 +32,9 @@ app.use(ErrorHandler);
 app.listen(PORT, async () => {
   console.log(chalk.blue(`Server is running on port ${PORT}`));
   await conn();
+  await seedCards();
   const usersFromDb = await User.find();
-
+  
   try {
     usersSeed.forEach(async(user)=>{
         if(usersFromDb.find((dbUser)=> dbUser.email === user.email)){
@@ -39,6 +43,7 @@ app.listen(PORT, async () => {
         const newUser = new User(user);
         await newUser.save();
     });
+    
     
   } catch (err) {
     console.log(err);
